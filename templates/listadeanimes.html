@@ -43,9 +43,9 @@
 
         <!-- A mágica aqui é verificar se o nome da última ação é igual ao nome deste anime específico -->
         {% if historico_acoes and (historico_acoes|last).nome == anime.nome %}
-            <form action="/desfazer" method="POST" style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #eee;">
-                <button type="submit" style="background-color: #ff4400b2; color: white; width: 100%;">
-                    ↩️ Desfazer última alteração
+            <form action="/desfazer" method="POST" style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #eee; display: flex; justify-content: flex-end;">
+                <button type="submit" style="background-color: #ff4400b2; color: white; width: max-content; padding: 6px 12px; font-size: 12px; border: none; border-radius: 12px; cursor: pointer;">
+                    Desfazer
                 </button>
             </form>
         {% endif %}

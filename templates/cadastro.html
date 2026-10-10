@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Tela de Cadastro</title>
+</head>
+<body>
+    <h2>Criar nova conta</h2>
+
+    <!-- O formulário agora envia os dados para a rota /cadastro -->
+    <form action="/cadastro" method="post"> 
+        <div>
+            <label for="username">Escolha um Usuário:</label>
+            <input type="text" id="username" name="username" required><br><br>
+        </div>
+
+        <div style="margin-top: 10px;">
+            <label for="password">Crie uma Senha:</label>
+            <input type="password" id="password" name="password" required><br><br>
+        </div>
+
+        <button type="submit">Cadastrar e Entrar</button>
+
+        {% if erro_no_cadastro %}
+            <p style="color: red;">{{ erro_no_cadastro }}</p> <!-- Exibe erro se o usuário já existir -->
+        {% endif %}
+        
+        <!-- Link para voltar para a tela de login -->
+        <div style="margin-top: 20px;">
+            Já tem uma conta? <a href="/login">Faça login aqui</a>
+        </div>
+    </form>
+    
+</body>
+</html>

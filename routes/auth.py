@@ -1,4 +1,5 @@
 import sqlite3
+
 from flask import Blueprint, redirect, render_template, request, session
 
 auth_bp = Blueprint('auth', __name__)

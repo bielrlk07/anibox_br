@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect, render_template, request, session
+from flask import Blueprint, redirect, render_template, request, session  # type: ignore
 
 from dados import (  # Importando os dados do seu arquivo novo
     historico_acoes,
