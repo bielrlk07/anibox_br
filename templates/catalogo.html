@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Catálogo de Animes</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div style="max-width: 600px; margin: 40px auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 1px solid #eee; padding-bottom: 15px;">
+            <h2 style="margin: 0;">Catálogo Global</h2>
+            <a href="/" style="text-decoration: none; color: #00ac0e; font-weight: bold; font-size: 14px;">⬅Voltar para Minha Lista</a>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 15px;">
+            {% for anime in animes %}
+            <div style="border: 1px solid #e0e0e0; padding: 15px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; background-color: #fafafa;">
+                <div>
+                    <h3 style="margin: 0 0 5px 0; font-size: 18px;">{{ anime.nome }}</h3>
+                    <span style="color: #777; font-size: 13px;">{{ anime.tipo }} • {{ anime.total_eps }} Episódios</span>
+                </div>
+                
+                <form action="/adicionar_lista" method="POST" style="margin: 0;">
+                    <!-- Enviamos o ID do anime silenciosamente no fundo -->
+                    <input type="hidden" name="anime_id" value="{{ anime.id }}">
+                    <button type="submit" style="background-color: #00ac0e; color: white; border: none; padding: 8px 15px; border-radius: 20px; cursor: pointer; font-weight: bold; font-size: 13px;">
+                        + Adicionar à Lista
+                    </button>
+                </form>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</body>
+</html>

@@ -2,61 +2,66 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minha Lista - AniBox BR</title>
+    <!-- Conectando o CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <title>Document</title>
 </head>
 <body>
+    
+    <!-- Barra Superior simulando o MAL -->
+    <nav class="navbar">
+        <h1>AniBox BR</h1>
+        <div class="navbar-links">
+            <span style="font-size: 13px; margin-right: 15px;">👤 {{ usuario_logado }}</span>
+            <a href="/logout">Sair</a>
+        </div>
+    </nav>
 
-    <div style="text-align: right;">
-        Bem-vindo, {{ session.usuario_logado }}! 
-        <a href="/logout">Sair da conta</a>
+    <!-- Container Principal Branco -->
+    <div class="container">
+        
+        <div class="section-header">
+            <h2>Minha Lista de Animes</h2>
+            <a href="/catalogo" class="btn-mal">+ Explorar Catálogo</a>
+        </div>
+
+        <div>
+            {% if animes %}
+                {% for anime in animes %}
+                <div class="anime-item">
+                    
+                    <!-- Lado Esquerdo: Nome e Tipo -->
+                    <div class="anime-info">
+                        <h3>{{ anime.nome }}</h3>
+                        <span>{{ anime.tipo }}</span>
+                    </div>
+                    
+                    <!-- Lado Direito: Progresso e Botões -->
+                    <div class="anime-progress">
+                        <div>{{ anime.eps_vistos }} / {{ anime.total_eps }} eps</div>
+                        
+                        {% if anime.finalizado %}
+                            <div style="color: #2e51a2; font-weight: bold; font-size: 12px; margin-top: 5px;">
+                                Status: Completo
+                            </div>
+                        {% else %}
+                            <form action="/atualizar" method="POST" class="update-form">
+                                <input type="hidden" name="lista_id" value="{{ anime.lista_id }}">
+                                <input type="number" name="eps" value="1" min="1" max="{{ anime.total_eps - anime.eps_vistos }}">
+                                <button type="submit" class="btn-mal">Atualizar</button>
+                            </form>
+                        {% endif %}
+                    </div>
+                    
+                </div>
+                {% endfor %}
+            {% else %}
+                <p style="text-align: center; color: #777; padding: 30px;">
+                    Sua lista está vazia. Adicione animes pelo catálogo!
+                </p>
+            {% endif %}
+        </div>
+
     </div>
-
-
-    <h1>Lista de Animes</h1>
-    <ul>
-        <!-- Iniciamos um loop FOR para percorrer cada anime da lista -->
-    {%for anime in lista_animes %}
-        <li> <strong> {{anime.nome}} </strong>
-            <em style="color: black;">({{anime.tipo}})</em>
-            <!-- Verificamos se o status é finalizado (True ou False) -->
-        {%if anime.finalizado %}
-            <em style="color: green;">(Finalizado)</em>
-        {%else%}
-            
-            {%if anime.eps_vistos == 0 %}
-                <em style="color: gray;">(Não iniciado)</em>
-            {%else%}
-                <em style="color: orange;">(Em andamento: {{anime.eps_vistos}} / {{anime.total_eps}} episodios )</em>
-            {%endif%}
-            
-            <form action="/atualizar" method="post" style="margin-top: 5px;">
-
-                <!-- O campo hidden (oculto) envia o nome do anime para o Python saber qual atualizar -->
-                <input type="hidden" name="nome_anime" value="{{ anime.nome }}">
-                <input type="number" name="novos_eps" min="1" max="{{ anime.total_eps - anime.eps_vistos }}"
-                placeholder="+ Eps" required style="width: 80px; padding: 5px; font-size: 16px;">
-                <button type="submit">Atualizar</button>
-            </form>
-        {%endif%}
-
-        <!-- A mágica aqui é verificar se o nome da última ação é igual ao nome deste anime específico -->
-        {% if historico_acoes and (historico_acoes|last).nome == anime.nome %}
-            <form action="/desfazer" method="POST" style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #eee; display: flex; justify-content: flex-end;">
-                <button type="submit" style="background-color: #ff4400b2; color: white; width: max-content; padding: 6px 12px; font-size: 12px; border: none; border-radius: 12px; cursor: pointer;">
-                    Desfazer
-                </button>
-            </form>
-        {% endif %}
-
-
-
-        </li>
-        {%endfor%}
-    </ul>
-
-
-
 </body>
 </html>

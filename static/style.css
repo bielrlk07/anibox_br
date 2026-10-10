@@ -1,116 +1,136 @@
-/* style.css - Inspirado na interface do Reddit */
+/* Reset básico para tirar margens indesejadas */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Verdana', 'Arial', sans-serif;
+}
 
-/* Fundo da página e fonte padrão */
+/* Fundo da página e cor do texto (Estilo MAL) */
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    background-color: #dae0e6; /* Cinza clássico do fundo do Reddit */
-    color: #1c1c1c; /* Quase preto, mais suave para leitura */
-    max-width: 650px; /* Largura mais estreita, imitando o feed principal */
-    margin: 0 auto;
-    padding: 20px;
+    background-color: #e2e7f3;
+    color: #323232;
 }
 
-/* O topo (bem-vindo e sair) */
-div[style*="text-align: right;"] {
-    background-color: white;
-    padding: 10px 15px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    font-size: 14px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+/* Barra superior (Navbar) simulando o cabeçalho do MAL */
+.navbar {
+    background-color: #00ac0e;
+    color: white;
+    padding: 15px 10%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
-a {
-    color: #0079d3; /* Azul do Reddit */
+.navbar h1 {
+    font-size: 20px;
+    letter-spacing: 1px;
+}
+
+.navbar-links a {
+    color: white;
     text-decoration: none;
+    font-size: 13px;
     font-weight: bold;
-    margin-left: 10px;
+    margin-left: 20px;
 }
 
-a:hover {
+.navbar-links a:hover {
     text-decoration: underline;
 }
 
-h1 {
-    font-size: 20px;
-    font-weight: 500;
-    margin-bottom: 15px;
-    color: #1c1c1c;
+/* Container Principal (Onde fica a lista) */
+.container {
+    max-width: 900px;
+    margin: 30px auto;
+    background-color: white;
+    border: 1px solid #d9d9d9;
+    padding: 20px 30px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
-/* Retira a formatação padrão da lista */
-ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-/* Estilo dos Cards (Cada Anime) */
-li {
-    background-color: #ffffff;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-bottom: 10px;
-    padding: 12px 16px;
+/* Título da seção (Ex: Minha Lista) */
+.section-header {
+    border-bottom: 2px solid #00ac0e;
+    padding-bottom: 8px;
+    margin-bottom: 20px;
     display: flex;
-    flex-direction: column;
-    gap: 10px;
-    transition: border 0.1s ease; /* Transição suave na borda */
+    justify-content: space-between;
+    align-items: flex-end;
 }
 
-/* Efeito de passar o mouse por cima do post (igual no Reddit) */
-li:hover {
-    border: 1px solid #898989; 
+.section-header h2 {
+    font-size: 18px;
+    color: #00ac0e;
 }
 
-/* Título do Anime no "post" */
-li strong {
-    font-size: 16px;
-    color: #222;
-}
-
-/* Inputs de texto e número */
-input[type="number"], input[type="text"], input[type="password"] {
-    border: 1px solid #edeff1;
-    background-color: #f6f7f8;
-    border-radius: 4px;
-    padding: 8px 12px;
-    font-size: 14px;
-    color: #1c1c1c;
-    outline: none;
-    transition: 0.2s;
-}
-
-/* Efeito quando clica para digitar na caixinha */
-input:focus {
-    background-color: #ffffff;
-    border-color: #0079d3;
-}
-
-/* Botões padrões no estilo "Pill" (pílula) do Reddit */
-button {
-    background-color: #0079d3; /* Azul característico */
+/* Botão Azul Padrão */
+.btn-mal {
+    background-color: #00ac0e;
     color: white;
+    padding: 6px 12px;
+    text-decoration: none;
     border: none;
-    padding: 8px 16px;
-    border-radius: 9999px; /* Arredonda totalmente as bordas */
-    cursor: pointer;
+    border-radius: 3px;
     font-weight: bold;
-    font-size: 14px;
-    transition: background-color 0.2s;
+    font-size: 12px;
+    cursor: pointer;
+    transition: 0.2s;
+    display: inline-block;
 }
 
-button:hover {
-    background-color: #1484d6;
+.btn-mal:hover {
+    background-color: #00ac0e;
 }
 
-/* Estilo específico para o formulário de Desfazer */
-form[action="/desfazer"] button {
-    background-color: #ff4500; /* Laranja/Vermelho oficial do Reddit (Upvote) */
-    width: 100%; /* Ocupa a tela toda para chamar atenção */
-    padding: 12px;
+/* Estrutura de cada Anime na lista */
+.anime-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #ebebeb;
 }
 
-form[action="/desfazer"] button:hover {
-    background-color: #e03d00;
+.anime-item:hover {
+    background-color: #f9f9f9;
+}
+
+.anime-info h3 {
+    font-size: 15px;
+    color: #00ac0e;
+    margin-bottom: 4px;
+}
+
+.anime-info span {
+    font-size: 10px;
+    color: #666;
+    text-transform: uppercase;
+    background: #eee;
+    padding: 2px 6px;
+    border-radius: 2px;
+    border: 1px solid #ddd;
+}
+
+.anime-progress {
+    font-size: 13px;
+    color: #323232;
+    text-align: right;
+}
+
+/* Formulário para atualizar episódios */
+.update-form {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 5px;
+}
+
+.update-form input[type="number"] {
+    width: 45px;
+    padding: 3px;
+    border: 1px solid #ccc;
+    text-align: center;
+    font-size: 12px;
 }
